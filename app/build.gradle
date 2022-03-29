@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.todolidst"
-        minSdkVersion 31
-        targetSdkVersion 31
+        minSdkVersion 15
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 

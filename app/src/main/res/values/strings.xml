@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">ToDoLidst</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <!-- Menu List  -->
+    <string name="menu_month">월별</string>
+    <string name="menu_week">주별</string>
+    <string name="menu_date">일별</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--  mainActivity  -->
+    <string name="main_txt_date">2022.03.29(화)</string>
+    <string name="main_txt_listSize"> / 5</string>
+    <string name="main_txt_complete">3</string>
+    <!--   mainListItem(recyclerview)     -->
+    <string name="main_item_mainCategory">알고리즘 공부</string>
+    <string name="main_item_subCategory">알고리즘 책 반 읽기</string>
+
 </resources>
