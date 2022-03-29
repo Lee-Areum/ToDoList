@@ -1,0 +1,2 @@
+rootProject.name = "ToDoLidst"
+include ':app'
