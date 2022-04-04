@@ -5,6 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolidst.databinding.MainListItemBinding
 
+class DayToDo(var subCategory: String, var isDone:Boolean){
+    var mainCategory: String = ""
+    var rightTxt : String = ""
+    constructor( subCategory: String, rightTxt : String ,isDone:Boolean) : this(subCategory,isDone) {
+        this.rightTxt = rightTxt
+    }
+    constructor(mainCategory: String, subCategory: String, rightTxt : String ,isDone:Boolean) : this(subCategory,isDone) {
+        this.mainCategory = mainCategory
+        this.rightTxt = rightTxt
+    }
+}
+
 class CustomAdapter (//main(일별) recyclerivew
     private val dayToDoList: ArrayList<DayToDo>,
     private val listener: (DayToDo,Int)->Unit //클릭이벤트 처리
@@ -33,6 +45,7 @@ class CustomAdapter (//main(일별) recyclerivew
                     listItemBinding.mainItemCheck.setChecked(todo.isDone)
                     listItemBinding.mainItemTxtMainCategory.setText(todo.mainCategory)
                     listItemBinding.mainItemTxtSubCategory.setText(todo.subCategory)
+                    listItemBinding.mainItemTxtDDay.setText(todo.rightTxt)
                 }
             }
     }

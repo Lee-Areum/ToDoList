@@ -9,8 +9,15 @@
     <string name="main_txt_date">2022.03.29(화)</string>
     <string name="main_txt_listSize"> / 5</string>
     <string name="main_txt_complete">3</string>
-    <!--   mainListItem(recyclerview)     -->
+        <!--   mainListItem(recyclerview)     -->
     <string name="main_item_mainCategory">알고리즘 공부</string>
     <string name="main_item_subCategory">알고리즘 책 반 읽기</string>
+    <string name="main_item_dDay">D-1</string>
+        <!--  FAB item  -->
+    <string name="main_fab_Main">M</string>
+    <string name="main_fab_Sub">S</string>
+
+    <!--  showMainPlan  -->
+    <string name="btn_date">2022.04.04(월)</string>
 
 </resources>
