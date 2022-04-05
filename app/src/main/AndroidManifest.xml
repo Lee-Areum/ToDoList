@@ -21,6 +21,9 @@
         <activity
             android:name=".ShowMainPlanActivity">
         </activity>
+        <activity
+            android:name=".EditMainPlanActivity">
+        </activity>
     </application>
 
 </manifest>

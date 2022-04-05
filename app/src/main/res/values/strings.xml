@@ -12,12 +12,15 @@
         <!--   mainListItem(recyclerview)     -->
     <string name="main_item_mainCategory">알고리즘 공부</string>
     <string name="main_item_subCategory">알고리즘 책 반 읽기</string>
-    <string name="main_item_dDay">D-1</string>
+    <string name="main_item_dDay">D -</string>
+    <string name="main_item_date">Day</string>
         <!--  FAB item  -->
     <string name="main_fab_Main">M</string>
     <string name="main_fab_Sub">S</string>
 
     <!--  showMainPlan  -->
-    <string name="btn_date">2022.04.04(월)</string>
+    <string name="btn_month">2022.04</string>
+    <!--  eidtMainPlan  -->
+    <string name="btn_date">2022.04.05</string>
 
 </resources>

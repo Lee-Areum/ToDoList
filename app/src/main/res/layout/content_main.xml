@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-<!--TODO: Calendarview 접히도록-->
+
+    <!--TODO: Calendarview 접히도록-->
     <CalendarView
         android:id="@+id/main_calanderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,8 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
             android:layout_marginBottom="8dp"
             android:text="@string/main_txt_listSize"
             android:textColor="@color/white"
@@ -70,7 +71,6 @@
         android:id="@+id/main_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"

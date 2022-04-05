@@ -5,17 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolidst.databinding.MainListItemBinding
 
-class DayToDo(var subCategory: String, var isDone:Boolean){
-    var mainCategory: String = ""
-    var rightTxt : String = ""
-    constructor( subCategory: String, rightTxt : String ,isDone:Boolean) : this(subCategory,isDone) {
-        this.rightTxt = rightTxt
-    }
-    constructor(mainCategory: String, subCategory: String, rightTxt : String ,isDone:Boolean) : this(subCategory,isDone) {
-        this.mainCategory = mainCategory
-        this.rightTxt = rightTxt
-    }
-}
 
 class CustomAdapter (//main(일별) recyclerivew
     private val dayToDoList: ArrayList<DayToDo>,
@@ -43,9 +32,15 @@ class CustomAdapter (//main(일별) recyclerivew
             RecyclerView.ViewHolder(listItemBinding.root){
                 fun bindItem(todo : DayToDo){
                     listItemBinding.mainItemCheck.setChecked(todo.isDone)
-                    listItemBinding.mainItemTxtMainCategory.setText(todo.mainCategory)
-                    listItemBinding.mainItemTxtSubCategory.setText(todo.subCategory)
-                    listItemBinding.mainItemTxtDDay.setText(todo.rightTxt)
+                    listItemBinding.mainItemTxtMainCategory.setText(todo.strList[0])
+                    listItemBinding.mainItemTxtSubCategory.setText(todo.strList[1])
+                    if(todo.strList.size == 3) { //D-day
+                        listItemBinding.mainItemTxtDDay.setText("D -")
+                        listItemBinding.mainItemTxtDate.setText(todo.strList[2])
+                    }else{ // 3/5
+                        listItemBinding.mainItemTxtDDay.setText(todo.strList[2])
+                        listItemBinding.mainItemTxtDate.setText("/ ${todo.strList[3]}")
+                    }
                 }
             }
     }
