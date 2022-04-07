@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import kotlin.collections.ArrayList
 
 class ShowMainPlanActivity : AppCompatActivity() {
     private lateinit var binding : ActivityShowMainplanBinding //viewBinder
+    lateinit var adapter: CustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +40,21 @@ class ShowMainPlanActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerview(){
-        binding.showMainplanRecyclerview.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = CustomAdapter(createDayToDoList()){dayToDo, position ->
-                Toast.makeText(
-                    this@ShowMainPlanActivity,
-                    "item${dayToDo.strList[1]} 클릭",
-                    Toast.LENGTH_SHORT
-                ).show()
+        adapter = CustomAdapter(createDayToDoList())
+        Log.v("areum","${adapter.itemCount}개 있음")
+        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: DayToDo, pos: Int) {
+                //TODO : 클릭하면 check 되도록
+                val check : CheckBox = v.findViewById(R.id.main_item_check)
+                check.setChecked(!check.isChecked)
             }
-        }
+        })
+        adapter.setOnLongClickListener(object : CustomAdapter.OnLongClickListener{
+            override fun onLongClick(v: View, data: DayToDo, pos: Int) {
+                //TODO : listmenu drop 되도록
+            }
+        })
+        binding.showMainplanRecyclerview.adapter = adapter
     }
 
     private fun createDayToDoList() : ArrayList<DayToDo>{

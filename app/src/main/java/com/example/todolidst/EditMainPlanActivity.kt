@@ -3,6 +3,8 @@ package com.example.todolidst
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import kotlin.collections.ArrayList
 
 class EditMainPlanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditMainplanBinding
+    lateinit var adapter: CustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +32,9 @@ class EditMainPlanActivity : AppCompatActivity() {
 
         binding.editMainDateBtn.setOnClickListener{
             val cal = Calendar.getInstance()
-            DatePickerDialog(this@EditMainPlanActivity,{datePicker, year, month, date ->
-                binding.editMainDateBtn.text = "${String.format("%04d",year)}.${String.format("%02d",month+1)}.${String.format("%02d",date)}"
-                binding.editMainDDayTxt.text = MyCalendar.getInstance().getDday(year,month,date)
+            DatePickerDialog(this@EditMainPlanActivity,{datePicker, year, month, date -> //datepickerdialog 띄우기
+                binding.editMainDateBtn.text = "${String.format("%04d",year)}.${String.format("%02d",month+1)}.${String.format("%02d",date)}" //버튼 text 변경
+                binding.editMainDDayTxt.text = MyCalendar.getInstance().getDday(year,month,date) //d-day 설정
                 Toast.makeText(this@EditMainPlanActivity,"$year.${month+1}.$date",Toast.LENGTH_SHORT).show()
             }, cal.get(Calendar.YEAR),cal.get(Calendar.MARCH),cal.get(Calendar.DATE)).show()
         }
@@ -39,16 +42,16 @@ class EditMainPlanActivity : AppCompatActivity() {
 
 
     private fun setupRecyclerview(){
-        binding.editMainPlanRecyclerview.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = CustomAdapter(createDayToDoList()){dayToDo, position ->
-                Toast.makeText(
-                    this@EditMainPlanActivity,
-                    "item${dayToDo.strList[1]} 클릭",
-                    Toast.LENGTH_SHORT
-                ).show()
+        adapter = CustomAdapter(createDayToDoList())
+        Log.v("areum","${adapter.itemCount}개 있음")
+        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: DayToDo, pos: Int) {
+                //TODO : 클릭하면 check 되도록
+                val check : CheckBox = v.findViewById(R.id.main_item_check)
+                check.setChecked(!check.isChecked)
             }
-        }
+        })
+        binding.editMainPlanRecyclerview.adapter = adapter
     }
 
     private fun createDayToDoList() : ArrayList<DayToDo>{

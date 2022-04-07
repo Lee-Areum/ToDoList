@@ -74,6 +74,8 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:ems="10"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
             android:hint="@string/main_item_subCategory"
             android:background="@color/whitegray"
             android:inputType="text|textMultiLine" />
@@ -87,9 +89,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editMainPlan_recyclerview"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"/>
 
     </LinearLayout>

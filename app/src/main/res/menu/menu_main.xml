@@ -3,15 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.todolidst.MainActivity">
     <item
-        android:id="@+id/menu_month"
-        android:title="@string/menu_month"
+        android:id="@+id/item_edit"
+        android:title="@string/item_edit"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_week"
-        android:title="@string/menu_week"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_date"
-        android:title="@string/menu_date"
+        android:id="@+id/item_delete"
+        android:title="@string/item_delete"
         app:showAsAction="never" />
 </menu>

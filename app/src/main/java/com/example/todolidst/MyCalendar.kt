@@ -25,19 +25,19 @@ class MyCalendar private constructor(){
         return week[num]
     }
 
-    fun getDday(year:Int,month:Int,date:Int):String{
-        cal = Calendar.getInstance()
+    fun getDday(year:Int,month:Int,date:Int):String{ //d-day 구하는 함수
+        cal = Calendar.getInstance() //오늘 날짜
         val today = cal.time.time
-        cal.set(year,month,date)
+        cal.set(year,month,date) //원하는 날짜로 세팅
         val dday = (cal.time.time - today) / (60*60*24*1000)
-        if(dday.compareTo(0) == 0) return "Day"
+        if(dday.compareTo(0) == 0) return "Day" //원하는 날짜 == 오늘 : D-day
         return dday.toString()
     }
 
     fun stringDateToInt(date : String):ArrayList<Int>{ //yyyy.mm.dd -> {yyyy,mm,dd}
         Log.v("areum","string이 뭔데 $date")
         val list = ArrayList<Int>()
-        val str_arr = date.split(".")
+        val str_arr = date.split(".") //'.'으로 나눔
         for(i in 0 .. str_arr.size-1 step(1)){
             list.add(str_arr.get(i).toInt())
         }

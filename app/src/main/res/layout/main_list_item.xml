@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -45,8 +46,7 @@
         android:text="@string/main_item_dDay"
         android:textSize="@dimen/txt_mideum"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/mainItem_txt_date"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -56,7 +56,8 @@
         android:text="@string/main_item_date"
         android:textSize="@dimen/txt_mideum"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -65,7 +66,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/txt_small"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="70dp" />
+        app:layout_constraintGuide_end="40dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -73,7 +74,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/txt_small"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="30dp" />
+        app:layout_constraintGuide_end="5dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

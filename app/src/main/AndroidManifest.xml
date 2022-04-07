@@ -19,10 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShowMainPlanActivity">
+            android:name=".ShowMainPlanActivity"
+            android:theme="@style/Theme.ToDoLidst">
         </activity>
         <activity
-            android:name=".EditMainPlanActivity">
+            android:name=".EditMainPlanActivity"
+            android:theme="@style/Theme.ToDoLidst">
         </activity>
     </application>
 

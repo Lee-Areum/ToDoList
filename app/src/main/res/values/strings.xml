@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">ToDoLidst</string>
     <!-- Menu List  -->
-    <string name="menu_month">월별</string>
-    <string name="menu_week">주별</string>
-    <string name="menu_date">일별</string>
+    <string name="item_edit">수정</string>
+    <string name="item_delete">삭제</string>
 
     <!--  mainActivity  -->
     <string name="main_txt_date">2022.03.29(화)</string>

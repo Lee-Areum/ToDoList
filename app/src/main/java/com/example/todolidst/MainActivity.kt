@@ -3,16 +3,19 @@ package com.example.todolidst
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolidst.databinding.ActivityMainBinding
-
+//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding //viewBinder
+    lateinit var adapter: CustomAdapter
     private var isFabOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,17 +27,17 @@ class MainActivity : AppCompatActivity() {
         //toolbar setting
         setSupportActionBar(binding.toolbar)
 
-        binding.fabPlus.setOnClickListener {
+        binding.fabPlus.setOnClickListener { //기본 FAB 클릭시
             toggleFab()
         }
 
-        binding.fabMain.setOnClickListener {
+        binding.fabMain.setOnClickListener { //M FAB 클릭시
             Toast.makeText(this@MainActivity,"Main FAB 클릭",Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainActivity, ShowMainPlanActivity::class.java).apply {  }
             startActivity(intent)
         }
 
-        binding.fabSub.setOnClickListener {
+        binding.fabSub.setOnClickListener { //S FAB 클릭시
             Toast.makeText(this@MainActivity,"Sub FAB 클릭",Toast.LENGTH_SHORT).show()
             val intent = Intent(this@MainActivity, EditMainPlanActivity::class.java).apply {  }
             startActivity(intent)
@@ -45,27 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         //recyclerview setting
         setupRecyclerview()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean { //메뉴 연결, 메뉴 생성과 초기화
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean { //메뉴 클릭시
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        val toast = Toast.makeText(this@MainActivity,"",Toast.LENGTH_SHORT)
-        when(item.itemId){
-            R.id.menu_month -> toast.setText("월별")
-            R.id.menu_week -> toast.setText("주별")
-            R.id.menu_date -> toast.setText("이미 일별 화면입니다.")
-        }
-        toast.show()
-        return super.onOptionsItemSelected(item)
     }
 
     //FAB 버튼 클릭시 동작하는 애니메이션
@@ -98,16 +80,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerview(){
-        binding.contentMain.mainRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = CustomAdapter(createDayToDoList()){dayToDo, position ->
-                Toast.makeText(
-                    this@MainActivity,
-                    "item${dayToDo.strList[1]} 클릭",
-                    Toast.LENGTH_SHORT
-                ).show()
+        adapter = CustomAdapter(createDayToDoList())
+        Log.v("areum","${adapter.itemCount}개 있음")
+        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: DayToDo, pos: Int) {
+                //TODO : 클릭하면 check 되도록
+                val check : CheckBox = v.findViewById(R.id.main_item_check)
+                check.setChecked(!check.isChecked)
             }
-        }
+        })
+        adapter.setOnLongClickListener(object : CustomAdapter.OnLongClickListener{
+            override fun onLongClick(v: View, data: DayToDo, pos: Int) {
+                //TODO : listmenu drop 되도록
+            }
+        })
+        binding.contentMain.mainRecyclerView.adapter = adapter
     }
 
     private fun createDayToDoList() : ArrayList<DayToDo>{
