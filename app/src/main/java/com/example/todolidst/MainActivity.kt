@@ -1,22 +1,25 @@
 package com.example.todolidst
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
+import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolidst.databinding.ActivityMainBinding
 //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding //viewBinder
     lateinit var adapter: CustomAdapter
     private var isFabOpen = false
+    private val TAG:String = "areum_main"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +42,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabSub.setOnClickListener { //S FAB 클릭시
             Toast.makeText(this@MainActivity,"Sub FAB 클릭",Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, EditMainPlanActivity::class.java).apply {  }
-            startActivity(intent)
+            val mDialogView = LayoutInflater.from(this@MainActivity).inflate(R.layout.dialog_edit_plan,null)
+                val containter: LinearLayout = mDialogView.findViewById(R.id.dialog_spinnerContainer)
+                val btnOK: Button = mDialogView.findViewById(R.id.dialog_buttonOK)
+                containter.visibility = View.VISIBLE
+                val mBuilder = AlertDialog.Builder(this@MainActivity)
+                    .setView(mDialogView)
+                    .setTitle("Sub 계획 추가")
+                val alertDialog = mBuilder.show()
+
+                btnOK.setOnClickListener{
+                    //TODO: 수정된 data 입력
+                    alertDialog.dismiss()
+                }
         }
 
         //calender setting
@@ -82,16 +96,47 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerview(){
         adapter = CustomAdapter(createDayToDoList())
         Log.v("areum","${adapter.itemCount}개 있음")
+        val swipeHelperCallBack = SwipeHelperCallback(adapter).apply{
+            setClamp(resources.displayMetrics.widthPixels.toFloat() / 7 * 2) //1000 / 4 = 270
+        }
+        ItemTouchHelper(swipeHelperCallBack).attachToRecyclerView(binding.contentMain.mainRecyclerView)
         adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener{
             override fun onItemClick(v: View, data: DayToDo, pos: Int) {
-                //TODO : 클릭하면 check 되도록
                 val check : CheckBox = v.findViewById(R.id.main_item_check)
                 check.setChecked(!check.isChecked)
             }
         })
-        adapter.setOnLongClickListener(object : CustomAdapter.OnLongClickListener{
-            override fun onLongClick(v: View, data: DayToDo, pos: Int) {
-                //TODO : listmenu drop 되도록
+        adapter.setOnItemEditClickListener(object : CustomAdapter.OnItemEditClickListener{
+            override fun onItemEditClick(v: View, data: DayToDo, pos: Int) {
+                if (!swipeHelperCallBack.isSlided()) {
+                    Log.v(TAG,"swipe 되지 않음")
+                    return
+                }
+                val mDialogView = LayoutInflater.from(this@MainActivity).inflate(R.layout.dialog_edit_plan,null)
+                val containter:LinearLayout = mDialogView.findViewById(R.id.dialog_spinnerContainer)
+                val btnOK: Button = mDialogView.findViewById(R.id.dialog_buttonOK)
+                containter.visibility = View.VISIBLE
+                val mBuilder = AlertDialog.Builder(this@MainActivity)
+                    .setView(mDialogView)
+                    .setTitle("Sub 계획 수정")
+                val alertDialog = mBuilder.show()
+
+                btnOK.setOnClickListener{
+                    //TODO: 수정된 data 입력
+                    alertDialog.dismiss()
+                }
+            }
+        })
+        adapter.setOnItemDelClickListener(object : CustomAdapter.OnItemDelClickListener{
+            override fun onItemDelClick(v: View, data: DayToDo, pos: Int) {
+                if (!swipeHelperCallBack.isSlided()) {
+                    Log.v(TAG,"swipe 되지 않음")
+                    return
+                }
+                Log.v(TAG,"${data.idNo} : 삭제버튼 클릭")
+                Toast.makeText(this@MainActivity,"${data.idNo}가 삭제됨",Toast.LENGTH_SHORT).show()
+                //TODO: 데이터 삭제
+                adapter.notifyDataSetChanged()
             }
         })
         binding.contentMain.mainRecyclerView.adapter = adapter

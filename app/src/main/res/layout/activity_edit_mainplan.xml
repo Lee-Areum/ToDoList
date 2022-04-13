@@ -72,13 +72,14 @@
             android:id="@+id/editMain_subPlanEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:ems="10"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:hint="@string/main_item_subCategory"
             android:background="@color/whitegray"
-            android:inputType="text|textMultiLine" />
+            android:ems="10"
+            android:hint="@string/main_item_subCategory"
+            android:inputType="text|textMultiLine"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint" />
 
         <View
             android:layout_width="match_parent"

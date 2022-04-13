@@ -1,5 +1,6 @@
 package com.example.todolidst
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,23 +13,28 @@ class CustomAdapter(//main(일별) recyclerivew
     private val dayToDoList: ArrayList<DayToDo>
 ) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
+    private val TAG : String = "areum_Adapter"
     private var clickListener: OnItemClickListener? = null
-    private var longClickListener: OnLongClickListener? = null
+    private var editclickListener: OnItemEditClickListener? = null
+    private var deleteclickListener: OnItemDelClickListener? = null
 
-    interface OnItemClickListener {
+    interface OnItemClickListener { //item 클릭
         fun onItemClick(v: View, data: DayToDo, pos: Int)
     }
-
-    interface OnLongClickListener {
-        fun onLongClick(v: View, data: DayToDo, pos: Int)
+    interface OnItemEditClickListener { //수정 클릭
+        fun onItemEditClick(v: View, data: DayToDo, pos: Int)
     }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
+    interface OnItemDelClickListener {
+        fun onItemDelClick(v: View, data: DayToDo, pos: Int)
+    }
+    fun setOnItemClickListener(listener: OnItemClickListener) {  //item 클릭
         this.clickListener = listener
     }
-
-    fun setOnLongClickListener(listener: OnLongClickListener) {
-        this.longClickListener = listener
+    fun setOnItemEditClickListener(listener: OnItemEditClickListener) { //수정 클릭
+        this.editclickListener = listener
+    }
+    fun setOnItemDelClickListener(listener: OnItemDelClickListener) { //수정 클릭
+        this.deleteclickListener = listener
     }
 
     override fun onCreateViewHolder(
@@ -57,6 +63,8 @@ class CustomAdapter(//main(일별) recyclerivew
         val txt_sub: TextView = view.findViewById(R.id.main_item_txtSubCategory)
         val txt_date: TextView = view.findViewById(R.id.mainItem_txt_date)
         val txt_dday: TextView = view.findViewById(R.id.mainItem_txt_dDay)
+        val txt_edit : TextView = view.findViewById(R.id.item_edit)
+        val txt_delete : TextView = view.findViewById(R.id.item_delete)
 
         fun bindItem(todo: DayToDo) {
             check.setChecked(todo.isDone)
@@ -74,10 +82,14 @@ class CustomAdapter(//main(일별) recyclerivew
                 itemView.setOnClickListener {
                     clickListener?.onItemClick(itemView, todo, pos)
                 }
-                itemView.setOnLongClickListener {
-                    longClickListener?.onLongClick(itemView, todo, pos)
-                    return@setOnLongClickListener true
-                }
+            }
+            txt_edit.setOnClickListener{
+                editclickListener?.onItemEditClick(itemView,todo,pos)
+                Log.v(TAG,"${todo.idNo} : 수정버튼 클릭")
+            }
+            txt_delete.setOnClickListener{
+                //TODO : 삭제하기
+                deleteclickListener?.onItemDelClick(itemView,todo,pos)
             }
         }
     }

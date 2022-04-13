@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <!--  menuLayout  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eeeeee"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/item_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple_500"
+            android:text="@string/item_edit"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_weight="3"/>
+        <TextView
+            android:id="@+id/item_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple_700"
+            android:text="@string/item_delete"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_weight="3"/>
+    </LinearLayout>
+
+    <!-- mainLayout -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
 
     <CheckBox
         android:id="@+id/main_item_check"
@@ -22,6 +61,7 @@
         android:id="@+id/main_item_txtMainCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:layout_marginTop="8dp"
         android:text="@string/main_item_mainCategory"
         android:textSize="@dimen/txt_small"
@@ -32,6 +72,7 @@
         android:id="@+id/main_item_txtSubCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:layout_marginBottom="16dp"
         android:text="@string/main_item_subCategory"
         android:textSize="@dimen/txt_mideum"
@@ -43,6 +84,7 @@
         android:id="@+id/mainItem_txt_dDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:text="@string/main_item_dDay"
         android:textSize="@dimen/txt_mideum"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,6 +95,7 @@
         android:id="@+id/mainItem_txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/gray"
         android:text="@string/main_item_date"
         android:textSize="@dimen/txt_mideum"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,4 +122,6 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+</FrameLayout>
     <!--TODO : text 자동 크기 조절 가능하면 해보기-->
