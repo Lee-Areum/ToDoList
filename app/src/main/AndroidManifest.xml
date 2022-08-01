@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoLidst">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.ToDoLidst.NoActionBar">
             <intent-filter>
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShowMainPlanActivity"
+            android:name=".Activity.ShowMainPlanActivity"
             android:theme="@style/Theme.ToDoLidst">
         </activity>
         <activity
-            android:name=".EditMainPlanActivity"
+            android:name=".Activity.EditMainPlanActivity"
             android:theme="@style/Theme.ToDoLidst">
         </activity>
     </application>

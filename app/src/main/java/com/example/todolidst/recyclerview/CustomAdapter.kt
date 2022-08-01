@@ -1,4 +1,4 @@
-package com.example.todolidst
+package com.example.todolidst.recyclerview
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolidst.DayToDo
+import com.example.todolidst.R
 
 
 class CustomAdapter(//main(일별) recyclerivew
@@ -58,7 +60,6 @@ class CustomAdapter(//main(일별) recyclerivew
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //recyclerview의 한 아이탬을 대변함
-        val check: CheckBox = view.findViewById(R.id.main_item_check)
         val txt_main: TextView = view.findViewById(R.id.main_item_txtMainCategory)
         val txt_sub: TextView = view.findViewById(R.id.main_item_txtSubCategory)
         val txt_date: TextView = view.findViewById(R.id.mainItem_txt_date)
@@ -67,7 +68,6 @@ class CustomAdapter(//main(일별) recyclerivew
         val txt_delete : TextView = view.findViewById(R.id.item_delete)
 
         fun bindItem(todo: DayToDo) {
-            check.setChecked(todo.isDone)
             txt_main.setText(todo.strList[0])
             txt_sub.setText(todo.strList[1])
             if (todo.strList.size == 3) { //D-day

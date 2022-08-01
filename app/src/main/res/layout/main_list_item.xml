@@ -45,39 +45,32 @@
     android:layout_height="wrap_content"
     android:background="@color/white" >
 
-    <CheckBox
-        android:id="@+id/main_item_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/main_item_txtMainCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/main_item_mainCategory"
+        android:textColor="@color/gray"
         android:textSize="@dimen/txt_small"
-        app:layout_constraintStart_toEndOf="@+id/main_item_check"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/main_item_txtSubCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginBottom="16dp"
         android:text="@string/main_item_subCategory"
+        android:textColor="@color/gray"
         android:textSize="@dimen/txt_mideum"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/main_item_check"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_item_txtMainCategory" />
 
     <TextView
@@ -109,7 +102,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/txt_small"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="40dp" />
+        app:layout_constraintGuide_end="51dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -117,7 +110,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/txt_small"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="5dp" />
+        app:layout_constraintGuide_end="13dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

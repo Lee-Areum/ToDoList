@@ -1,11 +1,11 @@
-package com.example.todolidst
+package com.example.todolidst.recyclerview
 
 import android.graphics.Canvas
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolidst.R
 import kotlin.math.min
 
 class SwipeHelperCallback (private val recyclerViewAdapter : CustomAdapter)  : ItemTouchHelper.Callback(){
@@ -89,7 +89,9 @@ class SwipeHelperCallback (private val recyclerViewAdapter : CustomAdapter)  : I
         setTag(viewHolder,currentDx <= -clamp)
         return 2f
     }
-    private fun getView(viewHolder: RecyclerView.ViewHolder) : View = viewHolder.itemView.findViewById(R.id.container)
+    private fun getView(viewHolder: RecyclerView.ViewHolder) : View = viewHolder.itemView.findViewById(
+        R.id.container
+    )
 
     private fun clampViewPositionHorizontal( //container를 swipe 했을때 (수정,삭제) 화면이 보이도록 고정
         dx: Float,

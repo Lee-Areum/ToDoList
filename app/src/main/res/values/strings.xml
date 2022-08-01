@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoLidst</string>
+    <string name="app_name">ToDoList</string>
     <!-- Menu List  -->
     <string name="item_edit">수정</string>
     <string name="item_delete">삭제</string>

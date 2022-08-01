@@ -1,18 +1,18 @@
-package com.example.todolidst
+package com.example.todolidst.Activity
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.todolidst.recyclerview.CustomAdapter
+import com.example.todolidst.DayToDo
+import com.example.todolidst.R
+import com.example.todolidst.recyclerview.SwipeHelperCallback
 import com.example.todolidst.databinding.ActivityShowMainplanBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -52,14 +52,12 @@ class ShowMainPlanActivity : AppCompatActivity() {
             setClamp(resources.displayMetrics.widthPixels.toFloat() / 7 * 2) //1000 / 4 = 270
         }
         ItemTouchHelper(swipeHelperCallBack).attachToRecyclerView(binding.showMainplanRecyclerview)
-        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener{
+        adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: DayToDo, pos: Int) {
                 swipeHelperCallBack.removePreviousClamp(binding.showMainplanRecyclerview)
-                val check : CheckBox = v.findViewById(R.id.main_item_check)
-                check.setChecked(!check.isChecked)
             }
         })
-        adapter.setOnItemEditClickListener(object : CustomAdapter.OnItemEditClickListener{
+        adapter.setOnItemEditClickListener(object : CustomAdapter.OnItemEditClickListener {
             override fun onItemEditClick(v: View, data: DayToDo, pos: Int) {
                 if (!swipeHelperCallBack.isSlided()) {
                     Log.v(TAG,"swipe 되지 않음")
@@ -69,7 +67,7 @@ class ShowMainPlanActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-        adapter.setOnItemDelClickListener(object : CustomAdapter.OnItemDelClickListener{
+        adapter.setOnItemDelClickListener(object : CustomAdapter.OnItemDelClickListener {
             override fun onItemDelClick(v: View, data: DayToDo, pos: Int) {
                 if (!swipeHelperCallBack.isSlided()) {
                     Log.v(TAG,"swipe 되지 않음")
@@ -90,27 +88,27 @@ class ShowMainPlanActivity : AppCompatActivity() {
                 0,
                 false,
                 arrayListOf("2022.05.03","소단원2","5","10")
-            ),DayToDo(
+            ), DayToDo(
                 1,
                 true,
                 arrayListOf("2022.04.21","소단원2","2","10")
-            ),DayToDo(
+            ), DayToDo(
                 2,
                 false,
                 arrayListOf("2022.08.12","소단원3","2","5")
-            ),DayToDo(
+            ), DayToDo(
                 3,
                 false,
                 arrayListOf("2022.12.12","소단원4","3","5")
-            ),DayToDo(
+            ), DayToDo(
                 4,
                 true,
                 arrayListOf("","소단원1","30","50")
-            ),DayToDo(
+            ), DayToDo(
                 5,
                 false,
                 arrayListOf("","소단원1","3","5")
-            ),DayToDo(
+            ), DayToDo(
                 6,
                 false,
                 arrayListOf("","소단원1","3","5")
