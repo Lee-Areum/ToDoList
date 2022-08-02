@@ -1,2 +1,2 @@
-# ToDoLidst
+# ToDoList
 나의 할일을 정리하고 편집할 수 있는 어플이다.
