@@ -13,6 +13,11 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolidst.*
 import com.example.todolidst.databinding.ActivityMainBinding
@@ -38,8 +43,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fabPlus.setOnClickListener { //기본 FAB 클릭시
-
+            val intent = Intent(this@MainActivity, AddPlanActivity::class.java).apply {  }
+            startActivity(intent)
         }
+
+        //navigation 설정
+        //https://developer.android.com/guide/navigation/navigation-ui?hl=ko
 
         //calender setting
         setupCalendar()
