@@ -1,6 +1,5 @@
 package com.example.todolidst.Activity
 
-import android.animation.ObjectAnimator
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -9,20 +8,19 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todolidst.*
+import com.example.todolidst.DB.DAO.Plan
+import com.example.todolidst.DB.DBHelper
 import com.example.todolidst.databinding.ActivityMainBinding
 import com.example.todolidst.recyclerview.CustomAdapter
 import com.example.todolidst.recyclerview.SwipeHelperCallback
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 class MainActivity : AppCompatActivity() {
@@ -55,6 +53,9 @@ class MainActivity : AppCompatActivity() {
 
         //recyclerview setting
         setupRecyclerview()
+
+        //connect Database
+        connectDB()
     }
 
     private fun setupCalendar(){
@@ -70,18 +71,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerview(){
-        adapter = CustomAdapter(createDayToDoList())
+        val db = DBHelper(this, null)
+        adapter = CustomAdapter(db)
         Log.v("areum","${adapter.itemCount}개 있음")
         val swipeHelperCallBack = SwipeHelperCallback(adapter).apply{
             setClamp(resources.displayMetrics.widthPixels.toFloat() / 7 * 2) //1000 / 4 = 270
         }
         ItemTouchHelper(swipeHelperCallBack).attachToRecyclerView(binding.contentMain.mainRecyclerView)
         adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener {
-            override fun onItemClick(v: View, data: DayToDo, pos: Int) {
+            override fun onItemClick(v: View, data: Plan, pos: Int) {
             }
         })
         adapter.setOnItemEditClickListener(object : CustomAdapter.OnItemEditClickListener {
-            override fun onItemEditClick(v: View, data: DayToDo, pos: Int) {
+            override fun onItemEditClick(v: View, data: Plan, pos: Int) {
                 if (!swipeHelperCallBack.isSlided()) {
                     Log.v(TAG,"swipe 되지 않음")
                     return
@@ -102,13 +104,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         adapter.setOnItemDelClickListener(object : CustomAdapter.OnItemDelClickListener {
-            override fun onItemDelClick(v: View, data: DayToDo, pos: Int) {
+            override fun onItemDelClick(v: View, data: Plan, pos: Int) {
                 if (!swipeHelperCallBack.isSlided()) {
                     Log.v(TAG,"swipe 되지 않음")
                     return
                 }
-                Log.v(TAG,"${data.idNo} : 삭제버튼 클릭")
-                Toast.makeText(this@MainActivity,"${data.idNo}가 삭제됨",Toast.LENGTH_SHORT).show()
+                Log.v(TAG,"${data.id} : 삭제버튼 클릭")
+                Toast.makeText(this@MainActivity,"${data.id}가 삭제됨",Toast.LENGTH_SHORT).show()
                 //TODO: 데이터 삭제
                 adapter.notifyDataSetChanged()
             }
@@ -116,42 +118,7 @@ class MainActivity : AppCompatActivity() {
         binding.contentMain.mainRecyclerView.adapter = adapter
     }
 
-    private fun createDayToDoList() : ArrayList<DayToDo>{
-        return arrayListOf<DayToDo>(
-            DayToDo(
-                0,
-                false,
-                arrayListOf("대단원1","소단원1", "1")
-            ), DayToDo(
-                1,
-                true,
-                arrayListOf("대단원1","소단원2", "2")
-            ),
-            DayToDo(
-                2,
-                true,
-                arrayListOf("대단원1","소단원3", "3")
-            ), DayToDo(
-                3,
-                false,
-                arrayListOf("대단원1","소단원4", "2")
-            ), DayToDo(
-                4,
-                false,
-                arrayListOf("대단원2","소단원1", "10")
-            ), DayToDo(
-                5,
-                false,
-                arrayListOf("대단원2","소단원2", "10")
-            ), DayToDo(
-                6,
-                true,
-                arrayListOf("대단원2","소단원3", "15")
-            ), DayToDo(
-                7,
-                false,
-                arrayListOf("대단원2","소단원4", "20")
-            )
-        )
+    private fun connectDB(){
+
     }
 }

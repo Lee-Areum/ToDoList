@@ -1,4 +1,4 @@
-package com.example.todolidst.DB
+package com.example.todolidst.DB.DAO
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -12,3 +12,6 @@ import java.sql.Date
 //    @ColumnInfo(name = "content") val content : String? = null
 //    @ColumnInfo(name = "is_done") val isDone : Boolean? = null
 //}
+
+
+//https://www.geeksforgeeks.org/android-sqlite-database-in-kotlin/

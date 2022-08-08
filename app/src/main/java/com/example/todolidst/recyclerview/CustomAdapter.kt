@@ -1,33 +1,58 @@
 package com.example.todolidst.recyclerview
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolidst.DayToDo
+import com.example.todolidst.DB.DAO.Plan
+import com.example.todolidst.DB.DBHelper
 import com.example.todolidst.R
 
 
-class CustomAdapter(//main(일별) recyclerivew
-    private val dayToDoList: ArrayList<DayToDo>
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val db : DBHelper?) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    //main(일별) recyclerivew
+    private val dayToDoList: ArrayList<Plan> = setData()
 
     private val TAG : String = "areum_Adapter"
     private var clickListener: OnItemClickListener? = null
     private var editclickListener: OnItemEditClickListener? = null
     private var deleteclickListener: OnItemDelClickListener? = null
 
+    @SuppressLint("Range")
+    private fun setData() : ArrayList<Plan>{
+        if(db == null){
+            return createDayToDoList()
+        }
+        val cursor = db.getAllPlan()
+        cursor!!.moveToFirst()
+        val list : ArrayList<Plan> = ArrayList()
+        while(cursor.moveToNext()){
+            val p = Plan(
+                id = cursor.getInt(cursor.getColumnIndex(DBHelper.ID)),
+                categoryID =  cursor.getInt(cursor.getColumnIndex("categoryID")),
+                category =cursor.getString(cursor.getColumnIndex("category")),
+                date = cursor.getLong(cursor.getColumnIndex("date")),
+                content = cursor.getString(cursor.getColumnIndex("content")),
+                isDone = cursor.getInt(cursor.getColumnIndex("isDone"))
+            )
+            list.add(p)
+        }
+        cursor.close()
+        return list
+    }
+
     interface OnItemClickListener { //item 클릭
-        fun onItemClick(v: View, data: DayToDo, pos: Int)
+        fun onItemClick(v: View, data: Plan, pos: Int)
     }
     interface OnItemEditClickListener { //수정 클릭
-        fun onItemEditClick(v: View, data: DayToDo, pos: Int)
+        fun onItemEditClick(v: View, data: Plan, pos: Int)
     }
     interface OnItemDelClickListener {
-        fun onItemDelClick(v: View, data: DayToDo, pos: Int)
+        fun onItemDelClick(v: View, data: Plan, pos: Int)
     }
     fun setOnItemClickListener(listener: OnItemClickListener) {  //item 클릭
         this.clickListener = listener
@@ -58,6 +83,35 @@ class CustomAdapter(//main(일별) recyclerivew
         return dayToDoList.size
     }
 
+    private fun createDayToDoList() : ArrayList<Plan> {
+        return arrayListOf<Plan>(
+            Plan(
+                0,
+                System.currentTimeMillis(),
+                1,
+                "소단원1",
+                "대단원1",
+                0,
+            ),
+            Plan(
+                1,
+                System.currentTimeMillis(),
+                2,
+                "소단원1",
+                "대단원2",
+                0,
+            ),
+            Plan(
+                2,
+                System.currentTimeMillis(),
+                1,
+                "소단원2",
+                "대단원1",
+                0,
+            ),
+        )
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //recyclerview의 한 아이탬을 대변함
         val txt_main: TextView = view.findViewById(R.id.main_item_txtMainCategory)
@@ -67,16 +121,12 @@ class CustomAdapter(//main(일별) recyclerivew
         val txt_edit : TextView = view.findViewById(R.id.item_edit)
         val txt_delete : TextView = view.findViewById(R.id.item_delete)
 
-        fun bindItem(todo: DayToDo) {
-            txt_main.setText(todo.strList[0])
-            txt_sub.setText(todo.strList[1])
-            if (todo.strList.size == 3) { //D-day
-                txt_dday.setText("D -")
-                txt_date.setText(todo.strList[2])
-            } else { // 3/5
-                txt_dday.setText("${todo.strList[2]} /")
-                txt_date.setText(todo.strList[3])
-            }
+        fun bindItem(todo: Plan) {
+            txt_main.setText(todo.content)
+            txt_sub.setText(todo.categoryID)
+
+            txt_dday.setText("D -")
+            txt_date.setText("") //TODO : time -> D-day
             val pos = adapterPosition
             if (pos != RecyclerView.NO_POSITION) {
                 itemView.setOnClickListener {
@@ -85,7 +135,7 @@ class CustomAdapter(//main(일별) recyclerivew
             }
             txt_edit.setOnClickListener{
                 editclickListener?.onItemEditClick(itemView,todo,pos)
-                Log.v(TAG,"${todo.idNo} : 수정버튼 클릭")
+                Log.v(TAG,"${todo.id} : 수정버튼 클릭")
             }
             txt_delete.setOnClickListener{
                 //TODO : 삭제하기
