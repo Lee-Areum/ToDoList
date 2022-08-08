@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
@@ -21,6 +23,7 @@ import com.example.todolidst.recyclerview.SwipeHelperCallback
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.log
 
 //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 class MainActivity : AppCompatActivity() {
@@ -56,6 +59,16 @@ class MainActivity : AppCompatActivity() {
 
         //connect Database
         connectDB()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Toast.makeText(this@MainActivity,"${item}가 눌렸습니다.",Toast.LENGTH_SHORT).show() //월별보기,
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupCalendar(){
