@@ -68,7 +68,7 @@ class CustomAdapter(private val db : DBHelper?) : RecyclerView.Adapter<CustomAda
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder { //recyclerview 생성시 호출
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_main_list, parent, false)
         return ViewHolder(v)
     }
 

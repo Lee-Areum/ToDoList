@@ -56,9 +56,6 @@ class MainActivity : AppCompatActivity() {
 
         //recyclerview setting
         setupRecyclerview()
-
-        //connect Database
-        connectDB()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,6 +64,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menuCategory){
+            val intent = Intent(this@MainActivity, ShowCategoryActivity::class.java).apply {  }
+            startActivity(intent)
+        }
         Toast.makeText(this@MainActivity,"${item}가 눌렸습니다.",Toast.LENGTH_SHORT).show() //월별보기,
         return super.onOptionsItemSelected(item)
     }
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerview(){
         val db = DBHelper(this, null)
         adapter = CustomAdapter(db)
-        Log.v("areum","${adapter.itemCount}개 있음")
+//        Log.v(TAG,"${adapter.itemCount}개 있음")
         val swipeHelperCallBack = SwipeHelperCallback(adapter).apply{
             setClamp(resources.displayMetrics.widthPixels.toFloat() / 7 * 2) //1000 / 4 = 270
         }
@@ -129,9 +130,5 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.contentMain.mainRecyclerView.adapter = adapter
-    }
-
-    private fun connectDB(){
-
     }
 }

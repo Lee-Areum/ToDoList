@@ -14,7 +14,7 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
 
     override fun onCreate(db: SQLiteDatabase) {
         var query = ("CREATE TABLE ${TABLE_NAME} ("+
-            "${ID} INT NOT NULL PRIMARY KEY,"+
+            "${ID} INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
             "${DATE} DATE NULL,"+
             "${CATEGORY_ID} INT NULL,"+
             "${CATEGORY} VARCHAR(50) NULL,"+
@@ -22,18 +22,10 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
             "${iS_DONE} INT NULL DEFAULT 0 )")
 
         db.execSQL(query)
-
-        query = ("CREATE TABLE category ("+
-                "${CATEGORY_ID} INT NOT NULL PRIMARY KEY,"+
-                "${CATEGORY} DATE NULL)"
-                )
-        db.execSQL(query)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
-        onCreate(db)
-        db.execSQL("DROP TABLE IF EXISTS category")
         onCreate(db)
     }
 
@@ -59,29 +51,9 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
         return db.rawQuery("SELECT * FROM "+TABLE_NAME, null)
     }
 
-    fun insertCategory(category : Category):Int{
-        val values = ContentValues()
-
-        values.put("categoryID",category.categoryID)
-        values.put("category",category.category)
-
-        val db = this.writableDatabase
-
-        val index = db.insert("category", null, values)
-        db.close()
-
-        return index.toInt()
-    }
-
-    fun getAllCategory() : Cursor?{
-        val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM category",null)
-    }
-
     companion object{
         val DATABASE_NAME = "ToDoList"
-        val DATABASE_VERSION = 1
+        val DATABASE_VERSION = 2
 
         val ID = "id"
         val DATE = "date"

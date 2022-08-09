@@ -31,6 +31,10 @@
             android:name=".Activity.AddPlanActivity"
             android:theme="@style/Theme.ToDoLidst">
         </activity>
+        <activity
+            android:name=".Activity.ShowCategoryActivity"
+            android:theme="@style/Theme.ToDoLidst">
+        </activity>
     </application>
 
 </manifest>
