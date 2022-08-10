@@ -67,8 +67,11 @@ class MainActivity : AppCompatActivity() {
         if(item.itemId == R.id.menuCategory){
             val intent = Intent(this@MainActivity, ShowCategoryActivity::class.java).apply {  }
             startActivity(intent)
+        }else if(item.itemId == R.id.menuList){
+            val intent = Intent(this@MainActivity, ShowListPlanActivity::class.java).apply {  }
+            startActivity(intent)
         }
-        Toast.makeText(this@MainActivity,"${item}가 눌렸습니다.",Toast.LENGTH_SHORT).show() //월별보기,
+//        Toast.makeText(this@MainActivity,"${item}가 눌렸습니다.",Toast.LENGTH_SHORT).show() //월별보기,
         return super.onOptionsItemSelected(item)
     }
 
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerview(){
         val db = DBHelper(this, null)
-        adapter = CustomAdapter(db)
+        adapter = CustomAdapter.getInstance(db)
 //        Log.v(TAG,"${adapter.itemCount}개 있음")
         val swipeHelperCallBack = SwipeHelperCallback(adapter).apply{
             setClamp(resources.displayMetrics.widthPixels.toFloat() / 7 * 2) //1000 / 4 = 270

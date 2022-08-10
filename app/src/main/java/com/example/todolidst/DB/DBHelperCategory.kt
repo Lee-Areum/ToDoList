@@ -45,7 +45,7 @@ class DBHelperCategory (context: Context, factory: SQLiteDatabase.CursorFactory?
 
     companion object {
         val DATABASE_NAME = "ToDoListCategory"
-        val DATABASE_VERSION = 2
+        val DATABASE_VERSION = 3
 
         val CATEGORY_ID = "categoryID"
         val CATEGORY = "category"

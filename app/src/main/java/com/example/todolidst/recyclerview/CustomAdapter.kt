@@ -12,7 +12,7 @@ import com.example.todolidst.DB.DBHelper
 import com.example.todolidst.R
 
 
-class CustomAdapter(private val db : DBHelper?) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private var db : DBHelper) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     //main(일별) recyclerivew
     private val dayToDoList: ArrayList<Plan> = setData()
@@ -22,25 +22,38 @@ class CustomAdapter(private val db : DBHelper?) : RecyclerView.Adapter<CustomAda
     private var editclickListener: OnItemEditClickListener? = null
     private var deleteclickListener: OnItemDelClickListener? = null
 
+    fun setDB(database:DBHelper){
+        db = database
+    }
+    companion object{
+        private var instance : CustomAdapter?= null
+        fun getInstance(database : DBHelper):CustomAdapter {
+            if (instance == null) {
+                instance = CustomAdapter(database)
+            } else {
+                instance!!.setDB(database)
+            }
+            return instance!!
+        }
+    }
     @SuppressLint("Range")
     private fun setData() : ArrayList<Plan>{
-        if(db == null){
-            return createDayToDoList()
-        }
         val cursor = db.getAllPlan()
         cursor!!.moveToFirst()
         val list : ArrayList<Plan> = ArrayList()
         while(cursor.moveToNext()){
             val p = Plan(
                 id = cursor.getInt(cursor.getColumnIndex(DBHelper.ID)),
-                categoryID =  cursor.getInt(cursor.getColumnIndex("categoryID")),
-                category =cursor.getString(cursor.getColumnIndex("category")),
-                date = cursor.getLong(cursor.getColumnIndex("date")),
-                content = cursor.getString(cursor.getColumnIndex("content")),
-                isDone = cursor.getInt(cursor.getColumnIndex("isDone"))
+                categoryID =  cursor.getInt(cursor.getColumnIndex(DBHelper.CATEGORY_ID)),
+                category =cursor.getString(cursor.getColumnIndex(DBHelper.CATEGORY)),
+//                category= "test",
+                date = cursor.getLong(cursor.getColumnIndex(DBHelper.DATE)),
+                content = cursor.getString(cursor.getColumnIndex(DBHelper.CONTENT)),
+                isDone = cursor.getInt(cursor.getColumnIndex(DBHelper.iS_DONE))
             )
             list.add(p)
         }
+        Log.v(TAG,"getlist size : ${list.size}")
         cursor.close()
         return list
     }
@@ -114,20 +127,20 @@ class CustomAdapter(private val db : DBHelper?) : RecyclerView.Adapter<CustomAda
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //recyclerview의 한 아이탬을 대변함
-        val txt_main: TextView = view.findViewById(R.id.main_item_txtMainCategory)
-        val txt_sub: TextView = view.findViewById(R.id.main_item_txtSubCategory)
+        val txt_category: TextView = view.findViewById(R.id.main_item_category)
+        val txt_content: TextView = view.findViewById(R.id.main_item_content)
         val txt_date: TextView = view.findViewById(R.id.mainItem_txt_date)
         val txt_dday: TextView = view.findViewById(R.id.mainItem_txt_dDay)
         val txt_edit : TextView = view.findViewById(R.id.item_edit)
         val txt_delete : TextView = view.findViewById(R.id.item_delete)
 
         fun bindItem(todo: Plan) {
-            txt_main.setText(todo.content)
-            txt_sub.setText(todo.categoryID)
+            txt_category.setText(todo.category)
+            txt_content.setText(todo.content)
 
             txt_dday.setText("D -")
             txt_date.setText("") //TODO : time -> D-day
-            val pos = adapterPosition
+            val pos = todo.id
             if (pos != RecyclerView.NO_POSITION) {
                 itemView.setOnClickListener {
                     clickListener?.onItemClick(itemView, todo, pos)

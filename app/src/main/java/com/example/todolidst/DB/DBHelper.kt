@@ -32,10 +32,11 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
     fun insertPlan(plan : Plan) : Int{
         val values = ContentValues()
 
-        values.put("date",plan.date)
-        values.put("content",plan.content)
-        values.put("categoryID",plan.categoryID)
-        values.put("isDone",plan.isDone)
+        values.put(DATE,plan.date)
+        values.put(CATEGORY_ID,plan.categoryID)
+        values.put(CATEGORY,plan.category)
+        values.put(CONTENT,plan.content)
+        values.put(iS_DONE,plan.isDone)
 
         val db = this.writableDatabase
 
@@ -53,7 +54,7 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
 
     companion object{
         val DATABASE_NAME = "ToDoList"
-        val DATABASE_VERSION = 2
+        val DATABASE_VERSION = 3
 
         val ID = "id"
         val DATE = "date"

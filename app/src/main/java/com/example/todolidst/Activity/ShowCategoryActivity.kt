@@ -38,7 +38,7 @@ class ShowCategoryActivity : AppCompatActivity() {
 
     fun setRecyclerview() {
         val db = DBHelperCategory(this, null)
-        adapter = CategoryAdapter(db)
+        adapter = CategoryAdapter.getInstance(db)
         Log.v(TAG,adapter.toString())
         adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: Category, pos: Int) {

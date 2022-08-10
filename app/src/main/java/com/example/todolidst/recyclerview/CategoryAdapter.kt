@@ -1,6 +1,7 @@
 package com.example.todolidst.recyclerview
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import com.example.todolidst.DB.DAO.Category
 import com.example.todolidst.DB.DBHelperCategory
 import com.example.todolidst.R
 
-class CategoryAdapter(private val db : DBHelperCategory?) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private var db : DBHelperCategory) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     //main(일별) recyclerivew
     private val TAG : String = "areum_category_Adapter"
@@ -19,12 +20,29 @@ class CategoryAdapter(private val db : DBHelperCategory?) : RecyclerView.Adapter
 
     private var clickListener: OnItemClickListener? = null
 
+    fun setDB(database:DBHelperCategory){
+        db = database
+    }
+
+    companion object{
+        private var instance : CategoryAdapter?= null
+        fun getInstance(database : DBHelperCategory):CategoryAdapter {
+            if (instance == null) {
+                instance = CategoryAdapter(database)
+            } else {
+                instance!!.setDB(database)
+            }
+            return instance!!
+        }
+    }
+
+    fun getCategoryList() : ArrayList<Category>{
+        return categoryList
+    }
+
     @SuppressLint("Range")
     private fun getData() : ArrayList<Category>{
 //        Log.v(TAG,"setData")
-        if(db == null){
-            return createDayToDoList()
-        }
         val cursor = db.getAllCategory()
         cursor!!.moveToFirst()
         val list : ArrayList<Category> = ArrayList()

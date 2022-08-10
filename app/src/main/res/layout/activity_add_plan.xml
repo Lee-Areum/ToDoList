@@ -43,54 +43,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/spinnerTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:gravity="center"
-        android:text="@string/dialog_spinnerTag"
-        android:textSize="@dimen/txt_mideum"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_spinner"
-        app:layout_constraintEnd_toStartOf="@+id/dialog_spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dialog_spinner" />
-
-    <Spinner
-        android:id="@+id/dialog_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:minWidth="250dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMain_subPlanEditText"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <EditText
-        android:id="@+id/editMain_subPlanEditText"
-        android:layout_width="0dp"
+        android:id="@+id/txtContent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@color/whitegray"
         android:ems="10"
         android:hint="@string/main_item_mainCategory"
         android:inputType="text"
         android:minHeight="48dp"
         android:padding="8dp"
-        android:textColor="@color/black"
         android:textColorHint="@color/hint"
+        android:background="@drawable/box_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/spinnerTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="@string/dialog_spinnerTag"
+        android:textSize="@dimen/txt_mideum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContent" />
+
+    <Spinner
+        android:id="@+id/dialog_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:minWidth="250dp"
+        android:minHeight="48dp"
+        android:background="@drawable/box_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTag"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/dialog_buttonOK"

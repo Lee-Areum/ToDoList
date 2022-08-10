@@ -63,7 +63,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editMain_subPlanEditText"
+        android:id="@+id/txtContent"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/whitegray"
@@ -86,7 +86,7 @@
         android:layout_margin="8dp"
         android:text="@string/dialog_btnOK"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editMain_subPlanEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/txtContent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
