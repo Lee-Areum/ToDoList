@@ -18,6 +18,7 @@ import com.example.todolidst.recyclerview.CustomAdapter
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDate.now
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -58,7 +59,7 @@ class AddPlanActivity  : AppCompatActivity(){
         binding.dialogSubDate.setOnClickListener{
             val cal = Calendar.getInstance()
             val dialog = DatePickerDialog(this@AddPlanActivity,{datePicker, year, month, date -> //datepickerdialog 띄우기
-                cal.set(year,month,date)
+                var test = cal.set(year,month,date) //TODO : 다시 보기
                 binding.dialogSubDate.setText(dateFormat.format(cal.time))
                 binding.dialogMainDDayTxt.text = MyCalendar.getInstance().getDday(year,month,date) //d-day 설정
                 Toast.makeText(this@AddPlanActivity,"${cal.time}", Toast.LENGTH_SHORT).show()
@@ -73,6 +74,8 @@ class AddPlanActivity  : AppCompatActivity(){
             if(binding.txtContent.text.length <= 0){
                 Toast.makeText(this@AddPlanActivity, "계획을 입력해주세요", Toast.LENGTH_SHORT).show()
             }else{
+                //
+//                val l  = LocalDate.parse(binding.dialogSubDate.text.toString(),DateTimeFormatter.ofPattern("yyyy.MM.dd"))
                 var p = Plan(
                         id = -1,
                         date = dateFormat.parse(dateFormat.format(cal.time)).time,
@@ -81,8 +84,8 @@ class AddPlanActivity  : AppCompatActivity(){
                         content = binding.txtContent.text.toString(),
                         isDone = 0
                     )
+                val flag = planAdapter.insertPlan(p)
                 Log.v(TAG,"date : ${p.date} categoryID : ${p.categoryID} category : ${p.category} content : ${p.content}")
-                var flag = planDB.insertPlan(p)
                 Log.v(TAG,"insert : ${flag}")
                 if(flag >= 0){
                     planAdapter.notifyDataSetChanged()
@@ -93,5 +96,4 @@ class AddPlanActivity  : AppCompatActivity(){
             }
         }
     }
-    //TODO : 이전날짜 막기 : https://youngest-programming.tistory.com/352
 }

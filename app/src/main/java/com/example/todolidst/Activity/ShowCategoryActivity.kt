@@ -21,7 +21,7 @@ import kotlin.math.log
 class ShowCategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowCategoryBinding //viewBinder
     lateinit var adapter: CategoryAdapter
-    val TAG = "areum_showMain"
+    val TAG = "reum/ShowCategory"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,6 @@ class ShowCategoryActivity : AppCompatActivity() {
     fun setRecyclerview() {
         val db = DBHelperCategory(this, null)
         adapter = CategoryAdapter.getInstance(db)
-        Log.v(TAG,adapter.toString())
         adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: Category, pos: Int) {
                 Log.v(TAG,"onclick")
@@ -63,6 +62,7 @@ class ShowCategoryActivity : AppCompatActivity() {
                         content,
                     ))
                     if(flag >= 0){
+                        Log.v(TAG,"flag : ${flag}" )
                         adapter.notifyDataSetChanged()
                     }else{
                         Toast.makeText(this@ShowCategoryActivity, "데이터 입력에 실패했습니다.",Toast.LENGTH_SHORT).show()

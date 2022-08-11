@@ -1,8 +1,6 @@
 package com.example.todolidst.recyclerview
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,28 +42,24 @@ class CategoryAdapter(private var db : DBHelperCategory) : RecyclerView.Adapter<
     private fun getData() : ArrayList<Category>{
 //        Log.v(TAG,"setData")
         val cursor = db.getAllCategory()
-        cursor!!.moveToFirst()
         val list : ArrayList<Category> = ArrayList()
-        while(cursor.moveToNext()){
+        cursor!!.moveToFirst()
+        do{
             val category = Category(
                 categoryID =  cursor.getInt(cursor.getColumnIndex("categoryID")),
                 category = cursor.getString(cursor.getColumnIndex("category")),
             )
             list.add(category)
 //            Log.v(TAG,"${category.categoryID} : ${category.category}")
-        }
-        Log.v(TAG,"category size : ${list.size}")
+        }while(cursor.moveToNext())
+//        Log.v(TAG,"category size : ${list.size}")
         cursor.close()
         return list
     }
 
     fun insertCategory(category: Category):Int{
-        Log.v(TAG,"insert")
-        if(db == null){
-            Log.v(TAG,"null")
-            return -1;
-        }
-        var flag = db.insertCategory(category)
+//        Log.v(TAG,"insert")
+        val flag = db.insertCategory(category)
         categoryList = getData()
         return flag
     }
@@ -80,7 +74,7 @@ class CategoryAdapter(private var db : DBHelperCategory) : RecyclerView.Adapter<
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         //recyclerview의 한 아이탬을 대변함
-        val txtCategory :TextView = view.findViewById(R.id.txtCategory)
+        val txtCategory = view.findViewById<TextView>(R.id.txtCategory)
         fun bindItem(category: Category) {
             txtCategory.text = category.category
             itemView.setOnClickListener{
@@ -102,21 +96,21 @@ class CategoryAdapter(private var db : DBHelperCategory) : RecyclerView.Adapter<
         return categoryList.size
     }
 
-    private fun createDayToDoList() : ArrayList<Category> {
-        return arrayListOf<Category>(
-            Category(
-                0,
-                "대단원1",
-            ),
-            Category(
-                1,
-                "대단원2",
-            ),
-            Category(
-                2,
-                "대단원3",
-            ),
-        )
-    }
+//    private fun createDayToDoList() : ArrayList<Category> {
+//        return arrayListOf<Category>(
+//            Category(
+//                0,
+//                "대단원1",
+//            ),
+//            Category(
+//                1,
+//                "대단원2",
+//            ),
+//            Category(
+//                2,
+//                "대단원3",
+//            ),
+//        )
+//    }
 
 }

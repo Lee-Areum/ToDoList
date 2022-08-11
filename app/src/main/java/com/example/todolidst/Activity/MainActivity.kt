@@ -20,6 +20,7 @@ import com.example.todolidst.DB.DBHelper
 import com.example.todolidst.databinding.ActivityMainBinding
 import com.example.todolidst.recyclerview.CustomAdapter
 import com.example.todolidst.recyclerview.SwipeHelperCallback
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fabPlus.setOnClickListener { //기본 FAB 클릭시
-            val intent = Intent(this@MainActivity, AddPlanActivity::class.java).apply {  }
+            val intent = Intent(this@MainActivity, AddPlanActivity::class.java)
             startActivity(intent)
         }
 
@@ -53,6 +54,9 @@ class MainActivity : AppCompatActivity() {
 
         //calender setting
         setupCalendar()
+        val now = System.currentTimeMillis()
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd")
+        binding.contentMain.mainTxtDate.text = dateFormat.format(now)
 
         //recyclerview setting
         setupRecyclerview()
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             val date = "$year.${String.format("%02d",month+1)}.${String.format("%02d",dayOfMonth)}($dayOfWeek)"
             val msg = "${date}가 클릭됨"
             Toast.makeText(this@MainActivity,msg,Toast.LENGTH_SHORT).show()
-            binding.contentMain.mainTxtDate.setText(date)
+            binding.contentMain.mainTxtDate.text = date
         }
         //TODO: 오늘로 setting 필요할듯
     }

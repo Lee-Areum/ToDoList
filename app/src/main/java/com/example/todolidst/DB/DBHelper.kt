@@ -5,11 +5,13 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.todolidst.DB.DAO.Category
 import com.example.todolidst.DB.DAO.Plan
 
 class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLiteOpenHelper(context,DATABASE_NAME,factory,
     DATABASE_VERSION){
+    private val TAG = "reum/DBHelper"
     private val TABLE_NAME: String = "plan"
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -48,8 +50,9 @@ class DBHelper(context: Context, factory:SQLiteDatabase.CursorFactory?) : SQLite
 
     fun getAllPlan() : Cursor? {
         val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME, null)
+        val cursor = db.rawQuery("SELECT * FROM "+TABLE_NAME, null)
+        Log.v(TAG,"cursor size : ${cursor.count}")
+        return cursor
     }
 
     companion object{

@@ -34,6 +34,13 @@ class MyCalendar private constructor(){
         return dday.toString()
     }
 
+    fun getDday(time : Long) : String{
+        val fewDay = time - System.currentTimeMillis()
+        val dday = fewDay / (60*60*24*1000) + 1
+        if(dday.compareTo(0) == 0) return "Day" //원하는 날짜 == 오늘 : D-day
+        return dday.toString()
+    }
+
     fun stringDateToInt(date : String):ArrayList<Int>{ //yyyy.mm.dd -> {yyyy,mm,dd}
         Log.v("areum","string이 뭔데 $date")
         val list = ArrayList<Int>()
